@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+					
+public class Program
+{
+	public static void Main()
+	{
+		List<Func<int>> Funcs = GetFuncSteps();
+		foreach (var func in Funcs)
+		{
+			MakeFunc(func);
+		}
+
+		Console.ReadLine();
+
+	}
+	
+	private static List<Func<int>> GetFuncSteps()
+	{
+		return new List<Func<int>>()
+		{
+			DummyFunc,
+			DummyFuncAgain,
+			DummyFuncMore
+		};
+	}
+	
+	public static readonly string Address = Constants.Address;
+    public static readonly string Format = Constants.Format;
+    private static int DummyFunc()
+    {
+        WriteToConsole("Петя", "школьный друг", 30);
+		return 1;
+    }
+
+    private static int DummyFuncAgain()
+    {
+        WriteToConsole("Вася", "сосед", 54);
+		return 1;
+    }
+
+    private static int DummyFuncMore()
+    {
+        WriteToConsole("Николай", "сын", 4);
+		return 1;
+    }
+
+    private static void WriteToConsole(string name, string description, 
+                                       int age)
+    {
+        Console.WriteLine(Format, name, description, Address, age);
+    }
+	
+	private static void MakeFunc(Func<int> func)
+	{
+	   string methodName = func.Method.Name;
+	   Console.WriteLine("Начало работы метода {0}", methodName);
+	   func();
+	   Console.WriteLine("Окончание работы метода {0}", methodName);
+	}
+	
+}
+
+public static class Constants
+{
+    public static readonly string Address = "Москва, Россия";
+    public static readonly string Format = "{0} - {1}, адрес {2}, возраст {3}";
+}
